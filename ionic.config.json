@@ -1,0 +1,7 @@
+{
+  "name": "taskmanager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

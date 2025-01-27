@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from "@angular/core";
 import type { Task } from "../../interfaces/Task";
 import { Router } from "@angular/router";
 import { Storage } from "@ionic/storage-angular";
+import { ViewWillEnter } from "@ionic/angular"; // Import IonViewWillEnter
 
 @Component({
 	selector: "app-task-list",
@@ -9,13 +10,17 @@ import { Storage } from "@ionic/storage-angular";
 	styleUrls: ["./task-list.page.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class TaskListPage {
+export class TaskListPage implements ViewWillEnter {
 	public tasks: Task[] = [];
 	private _router = inject(Router);
 	private _storage = inject(Storage);
 
 	async ngOnInit() {
 		await this._storage.create();
+		await this.getTaskData();
+	}
+
+	async ionViewWillEnter(): Promise<void> {
 		await this.getTaskData();
 	}
 

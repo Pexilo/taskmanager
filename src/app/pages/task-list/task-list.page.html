@@ -12,11 +12,14 @@
 <ion-content>
   <ion-list>
     @for (task of tasks; track task.id) {
-    <ion-item (click)="openTask(task.id)">
-      <ion-label>
+    <ion-item>
+      <ion-label (click)="openTask(task.id)">
         <h2>{{ task.title }}</h2>
         <p>{{ task.status }}</p>
       </ion-label>
+      <ion-button fill="clear" color="danger" (click)="deleteTask(task.id)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
     }
   </ion-list>

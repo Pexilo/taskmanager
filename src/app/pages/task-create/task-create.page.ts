@@ -57,4 +57,8 @@ export class TaskCreatePage {
 		await this._storage.set("tasks", tasks);
 		this._router.navigateByUrl("/task-list");
 	}
+
+	public goBack() {
+		this._router.navigateByUrl("/task-list");
+	}
 }

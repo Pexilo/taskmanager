@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Liste des Tâches</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="createTask()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Créer une Tâche</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="taskFormGroup" (ngSubmit)="createTask()">
+    <ion-item>
+      <ion-input
+        name="title"
+        formControlName="title"
+        label-placement="floating"
+        label="Titre"
+        placeholder="Faire les courses"
+        required
+        ngDefaultControl
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select
+        name="status"
+        formControlName="status"
+        label-placement="floating"
+        label="Status"
+        placeholder="En cours"
+        ngDefaultControl
+      >
+        @for (status of taskStatus; track $index) {
+        <ion-select-option [value]="status"> {{status}} </ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" type="submit" color="dark"> Créer </ion-button>
+  </form>
+</ion-content>

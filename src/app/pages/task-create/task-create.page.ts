@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from "@angular/core";
 import {
-	FormBuilder,
 	FormControl,
 	FormGroup,
 	ReactiveFormsModule,
@@ -19,7 +18,7 @@ import type { Task } from "../../interfaces/Task";
 })
 export class TaskCreatePage {
 	public taskFormGroup!: FormGroup;
-	public taskStatus: Task["status"][] = ["Todo", "Pending", "Done"];
+	public taskStatus: Task["status"][] = ["À faire", "En cours", "Terminé"];
 
 	private _router = inject(Router);
 	private _storage = inject(Storage);
@@ -28,7 +27,7 @@ export class TaskCreatePage {
 		const taskFG = new FormGroup({
 			id: new FormControl<number>(0),
 			title: new FormControl<string>("", Validators.required),
-			status: new FormControl<Task["status"]>("Todo", Validators.required),
+			status: new FormControl<Task["status"]>("À faire", Validators.required),
 		});
 		this.taskFormGroup = taskFG;
 		await this._storage.create();

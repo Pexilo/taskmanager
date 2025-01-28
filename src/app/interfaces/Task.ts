@@ -1,4 +1,4 @@
-type Status = "Todo" | "Pending" | "Done";
+type Status = "À faire" | "En cours" | "Terminé";
 export interface Task {
 	id: number;
 	title: string;

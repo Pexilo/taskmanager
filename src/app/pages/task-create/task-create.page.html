@@ -20,6 +20,7 @@
         placeholder="Faire les courses"
         required
         ngDefaultControl
+        [class.invalid]="taskFormGroup.get('title')?.invalid && taskFormGroup.get('title')?.touched"
       ></ion-input>
     </ion-item>
     <ion-item>
@@ -30,6 +31,7 @@
         label="Status"
         placeholder="En cours"
         ngDefaultControl
+        [class.invalid]="taskFormGroup.get('status')?.invalid && taskFormGroup.get('status')?.touched"
       >
         @for (status of taskStatus; track $index) {
         <ion-select-option [value]="status"> {{status}} </ion-select-option>
@@ -44,6 +46,7 @@
         label="Catégorie"
         placeholder="Choisir une catégorie"
         ngDefaultControl
+        [class.invalid]="taskFormGroup.get('category')?.invalid && taskFormGroup.get('category')?.touched"
       >
         @for (category of categories; track $index) {
         <ion-select-option [value]="category.name">
@@ -61,8 +64,14 @@
         label="Date de fin"
         required
         ngDefaultControl
+        [class.invalid]="taskFormGroup.get('endDate')?.invalid && taskFormGroup.get('endDate')?.touched"
       ></ion-input>
     </ion-item>
     <ion-button expand="block" type="submit" color="dark"> Créer </ion-button>
+    @if (taskFormGroup.invalid && taskFormGroup.touched) {
+    <ion-text color="danger">
+      <span>Veuillez remplir tous les champs</span>
+    </ion-text>
+    }
   </form>
 </ion-content>

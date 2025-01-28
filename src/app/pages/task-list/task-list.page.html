@@ -65,7 +65,7 @@
         [name]="showArchives ? 'chevron-up' : 'chevron-down'"
       ></ion-icon>
     </ion-item>
-    @if (showArchives) { @for (task of archivedTasks; track task.id) {
+    @if (showArchives) { @for (task of archivedTasks; track $index) {
     <ion-item>
       <ion-label (click)="openTask(task.id)">
         <h2>{{ task.title }}</h2>

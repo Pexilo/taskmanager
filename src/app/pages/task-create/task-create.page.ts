@@ -1,11 +1,13 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from "@angular/core";
 import {
-	FormControl,
+	FormBuilder,
 	FormGroup,
+	FormsModule,
 	ReactiveFormsModule,
 	Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { IonicModule } from "@ionic/angular";
 import { Storage } from "@ionic/storage-angular";
 import { CATEGORIES } from "src/app/constants/categories";
 import type { Task } from "../../interfaces/Task";
@@ -15,7 +17,7 @@ import type { Task } from "../../interfaces/Task";
 	templateUrl: "./task-create.page.html",
 	styleUrls: ["./task-create.page.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	imports: [ReactiveFormsModule],
+	imports: [IonicModule, FormsModule, ReactiveFormsModule],
 })
 export class TaskCreatePage {
 	public taskFormGroup!: FormGroup;
@@ -26,17 +28,8 @@ export class TaskCreatePage {
 	private _storage = inject(Storage);
 
 	async ngOnInit() {
-		const taskFG = new FormGroup({
-			id: new FormControl<number>(0),
-			title: new FormControl<string>("", Validators.required),
-			status: new FormControl<Task["status"]>("À faire", Validators.required),
-			category: new FormControl<string>(
-				this.categories[0].name,
-				Validators.required,
-			),
-			endDate: new FormControl<string>("", Validators.required),
-		});
-		this.taskFormGroup = taskFG;
+		const fb = new FormBuilder();
+		this.taskFormGroup = this.initFormGroup(fb);
 		await this._storage.create();
 	}
 
@@ -52,7 +45,22 @@ export class TaskCreatePage {
 		return lastTask.id + 1;
 	}
 
+	private initFormGroup(fb: FormBuilder): FormGroup {
+		return fb.group({
+			id: [0],
+			title: ["", Validators.required],
+			status: ["À faire", Validators.required],
+			category: [this.categories[0].name, Validators.required],
+			endDate: ["", Validators.required],
+		});
+	}
+
 	public async createTask() {
+		if (this.taskFormGroup.invalid) {
+			this.taskFormGroup.markAllAsTouched();
+			return;
+		}
+
 		const taskId = await this.getLastTaskId();
 		const task = this.taskFormGroup.value;
 		task.id = taskId;

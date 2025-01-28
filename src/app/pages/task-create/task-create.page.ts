@@ -34,6 +34,7 @@ export class TaskCreatePage {
 				this.categories[0].name,
 				Validators.required,
 			),
+			endDate: new FormControl<string>("", Validators.required),
 		});
 		this.taskFormGroup = taskFG;
 		await this._storage.create();

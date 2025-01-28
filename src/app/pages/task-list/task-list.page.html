@@ -51,10 +51,47 @@
       >
         <ion-icon name="refresh"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" color="danger" (click)="deleteTask(task.id)">
-        <ion-icon name="trash"></ion-icon>
+      <ion-button fill="clear" color="warning" (click)="archiveTask(task.id)">
+        <ion-icon name="archive"></ion-icon>
       </ion-button>
     </ion-item>
     }
+  </ion-list>
+
+  <ion-list>
+    <ion-item button (click)="toggleArchives()">
+      <ion-label>Archives</ion-label>
+      <ion-icon
+        [name]="showArchives ? 'chevron-up' : 'chevron-down'"
+      ></ion-icon>
+    </ion-item>
+    @if (showArchives) { @for (task of archivedTasks; track task.id) {
+    <ion-item>
+      <ion-label (click)="openTask(task.id)">
+        <h2>{{ task.title }}</h2>
+        <p>
+          {{ task.status }} ·
+          <span
+            [style.color]="isDueSoon(getDaysRemaining(task.endDate)) ? 'red' : 'inherit'"
+          >
+            {{ getDaysRemaining(task.endDate) }}{{typeof
+            getDaysRemaining(task.endDate) === 'number' ? 'j restant(s)' : ''}}.
+          </span>
+        </p>
+        <ion-badge
+          [style.background]="getCategoryColor(task.category)"
+          style="margin-top: 5px"
+        >
+          {{ task.category }}
+        </ion-badge>
+        <ion-badge
+          [style.background]="getStatusEmoji(task.status).color"
+          style="margin-top: 5px; margin-left: 10px"
+        >
+          {{ getStatusEmoji(task.status).emoji }} {{ task.status }}
+        </ion-badge>
+      </ion-label>
+    </ion-item>
+    } }
   </ion-list>
 </ion-content>

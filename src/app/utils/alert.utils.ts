@@ -29,7 +29,7 @@ export class AlertUtils {
 					role: "cancel",
 				},
 				{
-					text: "Supprimer",
+					text: "Archiver",
 					handler: confirmHandler,
 				},
 			],

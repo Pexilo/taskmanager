@@ -19,6 +19,9 @@ type StatusEmoji = {
 })
 export class TaskListPage implements ViewWillEnter {
 	public tasks: Task[] = [];
+	public archivedTasks: Task[] = [];
+	public showArchives = false;
+
 	private _router = inject(Router);
 	private _storage = inject(Storage);
 	private _alertUtils = inject(AlertUtils);
@@ -66,7 +69,9 @@ export class TaskListPage implements ViewWillEnter {
 	}
 
 	private async getTaskData(): Promise<void> {
-		this.tasks = (await this._storage.get("tasks")) || [];
+		const tasks = (await this._storage.get("tasks")) || [];
+		this.tasks = tasks.filter((task: Task) => !task.archived);
+		this.archivedTasks = tasks.filter((task: Task) => task.archived);
 	}
 
 	public openTask(taskId: number) {
@@ -88,14 +93,26 @@ export class TaskListPage implements ViewWillEnter {
 		}
 	}
 
-	public async deleteTask(taskId: number) {
+	public async archiveTask(taskId: number) {
 		this._alertUtils.showConfirmationAlert(
-			"Confirmer la suppression",
-			"Voulez-vous vraiment supprimer cette tâche ? Cette action est irréversible.",
+			"Confirmer l'archivage",
+			"Voulez-vous vraiment archiver cette tâche ?",
 			async () => {
-				this.tasks = this.tasks.filter((task) => task.id !== taskId); // filtre les tâches pour ne pas inclure celle à supprimer
-				await this._storage.set("tasks", this.tasks);
+				const task = this.tasks.find((t) => t.id === taskId);
+				if (task) {
+					task.archived = true;
+					this.tasks = this.tasks.filter((t) => t.id !== taskId);
+					this.archivedTasks.push(task);
+					await this._storage.set("tasks", [
+						...this.tasks,
+						...this.archivedTasks,
+					]);
+				}
 			},
 		);
+	}
+
+	public toggleArchives() {
+		this.showArchives = !this.showArchives;
 	}
 }

@@ -7,6 +7,7 @@ import {
 } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Storage } from "@ionic/storage-angular";
+import { CATEGORIES } from "src/app/constants/categories";
 import type { Task } from "../../interfaces/Task";
 
 @Component({
@@ -19,6 +20,7 @@ import type { Task } from "../../interfaces/Task";
 export class TaskCreatePage {
 	public taskFormGroup!: FormGroup;
 	public taskStatus: Task["status"][] = ["À faire", "En cours", "Terminé"];
+	public categories = CATEGORIES;
 
 	private _router = inject(Router);
 	private _storage = inject(Storage);
@@ -28,6 +30,10 @@ export class TaskCreatePage {
 			id: new FormControl<number>(0),
 			title: new FormControl<string>("", Validators.required),
 			status: new FormControl<Task["status"]>("À faire", Validators.required),
+			category: new FormControl<string>(
+				this.categories[0].name,
+				Validators.required,
+			),
 		});
 		this.taskFormGroup = taskFG;
 		await this._storage.create();

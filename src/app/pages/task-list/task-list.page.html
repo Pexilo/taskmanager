@@ -16,6 +16,12 @@
       <ion-label (click)="openTask(task.id)">
         <h2>{{ task.title }}</h2>
         <p>{{ task.status }}</p>
+        <ion-badge
+          [style.background]="getCategoryColor(task.category)"
+          style="margin-top: 5px"
+        >
+          {{ task.category }}
+        </ion-badge>
       </ion-label>
       <ion-button fill="clear" color="danger" (click)="deleteTask(task.id)">
         <ion-icon name="trash"></ion-icon>

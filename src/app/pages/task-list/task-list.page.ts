@@ -2,6 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { ViewWillEnter } from "@ionic/angular";
 import { Storage } from "@ionic/storage-angular";
+import { CATEGORIES } from "src/app/constants/categories";
 import type { Task } from "../../interfaces/Task";
 import { AlertUtils } from "../../utils/alert.utils";
 
@@ -23,6 +24,11 @@ export class TaskListPage implements ViewWillEnter {
 
 	async ionViewWillEnter() {
 		await this.getTaskData();
+	}
+
+	public getCategoryColor(categoryName: string): string {
+		const category = CATEGORIES.find((cat) => cat.name === categoryName);
+		return category ? category.color : "#CCCCCC";
 	}
 
 	private async getTaskData(): Promise<void> {

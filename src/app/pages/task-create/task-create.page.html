@@ -36,6 +36,22 @@
         }
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-select
+        name="category"
+        formControlName="category"
+        label-placement="floating"
+        label="Catégorie"
+        placeholder="Choisir une catégorie"
+        ngDefaultControl
+      >
+        @for (category of categories; track $index) {
+        <ion-select-option [value]="category.name">
+          {{category.name}}
+        </ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
     <ion-button expand="block" type="submit" color="dark"> Créer </ion-button>
   </form>
 </ion-content>

@@ -1,8 +1,15 @@
-import { Component, Input, Output, EventEmitter, inject } from "@angular/core";
-import { Task, Status } from "../../interfaces/Task";
+import {
+	ChangeDetectorRef,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+	inject,
+} from "@angular/core";
+import { TaskService } from "src/app/services/task.service";
 import { CATEGORIES } from "../../constants/categories";
 import { STATUS } from "../../constants/status";
-import { TaskService } from "src/app/services/task.service";
+import { Status, Task } from "../../interfaces/Task";
 
 @Component({
 	selector: "app-task-card",
@@ -12,6 +19,7 @@ import { TaskService } from "src/app/services/task.service";
 })
 export class TaskCardPage {
 	@Input() task!: Task;
+	@Output() refresh = new EventEmitter<void>();
 
 	categories = CATEGORIES;
 	statusList = STATUS;
@@ -46,9 +54,11 @@ export class TaskCardPage {
 
 	async updateStatus(newStatus: Status) {
 		await this._taskService.updateTaskStatus(this.task.id, newStatus);
+		this.refresh.emit();
 	}
 
 	async archiveTask() {
 		await this._taskService.archiveTask(this.task.id);
+		this.refresh.emit();
 	}
 }

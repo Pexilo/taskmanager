@@ -11,12 +11,11 @@ import { TaskService } from "src/app/services/task.service";
 	styleUrls: ["./task-list.page.scss"],
 	standalone: false,
 })
-export class TaskListPage implements ViewWillEnter {
+export class TaskListPage implements ViewDidEnter {
 	public tasks: Task[] = [];
 	public archivedTasks: Task[] = [];
 	public showArchives = false;
 
-	private _cdr = inject(ChangeDetectorRef);
 	private _router = inject(Router);
 	private _taskService = inject(TaskService);
 
@@ -24,30 +23,21 @@ export class TaskListPage implements ViewWillEnter {
 		this.loadTasks();
 	}
 
-	async ionViewWillEnter() {
+	async ionViewDidEnter() {
+		this.loadTasks();
+	}
+
+	refreshTasks() {
 		this.loadTasks();
 	}
 
 	private async loadTasks() {
 		this.tasks = await this._taskService.getTasks();
 		this.archivedTasks = await this._taskService.getArchivedTasks();
-
-		this._cdr.detectChanges();
-		console.log("Tasks updated:", this.tasks);
 	}
 
 	public createTask() {
 		this._router.navigateByUrl("/task-create");
-	}
-
-	public async archiveTask(taskId: number) {
-		await this._taskService.archiveTask(taskId);
-		await this.loadTasks();
-	}
-
-	public async updateTaskStatus(taskId: number, newStatus: Status) {
-		await this._taskService.updateTaskStatus(taskId, newStatus);
-		await this.loadTasks();
 	}
 
 	public toggleArchives() {

@@ -55,19 +55,15 @@ export class TaskService {
 				"Confirmer l'archivage",
 				"Voulez-vous vraiment archiver cette tâche ?",
 				async () => {
-					// Get fresh copies
 					const tasks = await this.getTasks();
 					const archivedTasks = await this.getArchivedTasks();
 
-					// Find task index
 					const taskIndex = tasks.findIndex((t) => t.id === taskId);
 					if (taskIndex === -1) return;
 
-					// Create new arrays
 					const updatedTasks = [...tasks];
 					const [archivedTask] = updatedTasks.splice(taskIndex, 1);
 
-					// Update storage atomically
 					await Promise.all([
 						this._storage.set("tasks", updatedTasks),
 						this._storage.set("archivedTasks", [

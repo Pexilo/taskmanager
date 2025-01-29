@@ -11,13 +11,14 @@ import { IonicModule } from "@ionic/angular";
 import { Storage } from "@ionic/storage-angular";
 import { CATEGORIES } from "src/app/constants/categories";
 import type { Task } from "../../interfaces/Task";
+import { CommonModule } from "@angular/common";
 
 @Component({
 	selector: "app-task-create",
 	templateUrl: "./task-create.page.html",
 	styleUrls: ["./task-create.page.scss"],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	imports: [IonicModule, FormsModule, ReactiveFormsModule],
+	imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule],
 })
 export class TaskCreatePage {
 	public taskFormGroup!: FormGroup;

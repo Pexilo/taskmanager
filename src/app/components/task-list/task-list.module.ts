@@ -7,18 +7,17 @@ import { IonicModule } from "@ionic/angular";
 import { TaskListPageRoutingModule } from "./task-list-routing.module";
 
 import { TaskListPage } from "./task-list.page";
-import { TaskCardComponent } from "src/app/components/task-card/task-card.component";
+import { TaskCardPageModule } from "../task-card/task-card.module";
 
 @NgModule({
-	declarations: [TaskCardComponent],
 	imports: [
 		CommonModule,
 		FormsModule,
 		IonicModule,
 		TaskListPageRoutingModule,
-		TaskListPage,
+		TaskCardPageModule,
 	],
-	exports: [TaskCardComponent],
+	declarations: [TaskListPage],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TaskListPageModule {}

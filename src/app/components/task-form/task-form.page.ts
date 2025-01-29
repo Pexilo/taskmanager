@@ -1,17 +1,20 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Task } from "../../interfaces/Task";
 import { CATEGORIES } from "../../constants/categories";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-task-form",
-	templateUrl: "./task-form.component.html",
-	styleUrls: ["./task-form.component.scss"],
+	templateUrl: "./task-form.page.html",
+	styleUrls: ["./task-form.page.scss"],
 	standalone: false,
 })
-export class TaskFormComponent {
+export class TaskFormPage {
 	@Input() initialValues: Partial<Task> = {};
 	@Output() formSubmit = new EventEmitter<Task>();
+
+	private _router = inject(Router);
 
 	public taskForm: FormGroup;
 	categories = CATEGORIES;
@@ -33,8 +36,11 @@ export class TaskFormComponent {
 	}
 
 	onSubmit() {
-		if (this.taskForm.valid) {
-			this.formSubmit.emit(this.taskForm.value);
+		if (this.taskForm.invalid) {
+			this.taskForm.markAllAsTouched();
+			return;
 		}
+		this.formSubmit.emit(this.taskForm.value);
+		this._router.navigateByUrl("/task-list");
 	}
 }

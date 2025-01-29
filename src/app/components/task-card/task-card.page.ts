@@ -1,21 +1,22 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter, inject } from "@angular/core";
 import { Task, Status } from "../../interfaces/Task";
 import { CATEGORIES } from "../../constants/categories";
 import { STATUS } from "../../constants/status";
+import { TaskService } from "src/app/services/task.service";
 
 @Component({
 	selector: "app-task-card",
-	templateUrl: "./task-card.component.html",
-	styleUrls: ["./task-card.component.scss"],
+	templateUrl: "./task-card.page.html",
+	styleUrls: ["./task-card.page.scss"],
 	standalone: false,
 })
-export class TaskCardComponent {
+export class TaskCardPage {
 	@Input() task!: Task;
-	@Output() statusUpdate = new EventEmitter<Status>();
-	@Output() archive = new EventEmitter<void>();
 
 	categories = CATEGORIES;
 	statusList = STATUS;
+
+	private _taskService = inject(TaskService);
 
 	getCategoryColor(categoryName: string): string {
 		return (
@@ -41,5 +42,13 @@ export class TaskCardComponent {
 		if (daysRemaining < 0) return "Expiré";
 		if (daysRemaining === 0) return "Expire aujourd'hui";
 		return daysRemaining;
+	}
+
+	async updateStatus(newStatus: Status) {
+		await this._taskService.updateTaskStatus(this.task.id, newStatus);
+	}
+
+	async archiveTask() {
+		await this._taskService.archiveTask(this.task.id);
 	}
 }

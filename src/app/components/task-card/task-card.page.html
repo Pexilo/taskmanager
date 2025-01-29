@@ -4,13 +4,11 @@
     <p>
       {{ task.status }} ·
       <span
-        [style.color]="
-          getDaysRemaining(task.endDate) === 'Expiré' ? 'red' : 'inherit'
-        "
+        [style.color]="getDaysRemaining(task.endDate) === 'Expiré' ? 'red' : 'inherit'"
       >
-        {{ getDaysRemaining(task.endDate) }}
-        @if(typeof getDaysRemaining(task.endDate) === 'number') {
-        <ng-container> j restant(s) </ng-container>
+        {{ getDaysRemaining(task.endDate) }} @if (typeof
+        getDaysRemaining(task.endDate) === 'number') {
+        <ng-container>j restant(s)</ng-container>
         }
       </span>
     </p>
@@ -22,17 +20,15 @@
     </ion-badge>
   </ion-label>
 
-  <ion-button
-    fill="clear"
-    color="success"
-    (click)="statusUpdate.emit('Terminé')"
-  >
+  <ion-button fill="clear" color="success" (click)="updateStatus('Terminé')">
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>
-  <ion-button fill="clear" color="info" (click)="statusUpdate.emit('En cours')">
+
+  <ion-button fill="clear" color="info" (click)="updateStatus('En cours')">
     <ion-icon name="refresh"></ion-icon>
   </ion-button>
-  <ion-button fill="clear" color="warning" (click)="archive.emit()">
+
+  <ion-button fill="clear" color="warning" (click)="archiveTask()">
     <ion-icon name="archive"></ion-icon>
   </ion-button>
 </ion-item>

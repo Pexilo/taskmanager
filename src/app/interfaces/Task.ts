@@ -5,5 +5,4 @@ export interface Task {
 	status: Status;
 	category: string;
 	endDate: string;
-	archived: boolean;
 }

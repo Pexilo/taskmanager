@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content>
+  @if(techQuoteMsg) {
+  <p style="text-align: center; font-size: 1.2em">{{ techQuoteMsg }}</p>
+  }
   <ion-list>
     @for (task of tasks; track task.id) {
     <app-task-card [task]="task" (refresh)="refreshTasks()"> </app-task-card>

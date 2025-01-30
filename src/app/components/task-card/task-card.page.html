@@ -5,6 +5,7 @@
       {{ task.status }} ·
       <span
         [style.color]="getDaysRemaining(task.endDate) === 'Expiré' ? 'red' : 'inherit'"
+        style="margin-top: 5px"
       >
         {{ getDaysRemaining(task.endDate) }} @if (typeof
         getDaysRemaining(task.endDate) === 'number') {
@@ -12,7 +13,10 @@
         }
       </span>
     </p>
-    <ion-badge [style.background]="getCategoryColor(task.category)">
+    <ion-badge
+      [style.background]="getCategoryColor(task.category)"
+      style="margin-top: 5px; margin-right: 10px"
+    >
       {{ task.category }}
     </ion-badge>
     <ion-badge [style.background]="getStatusEmoji(task.status).color">

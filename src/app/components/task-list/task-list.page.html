@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Liste des Tâches</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="createTask()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if(randomFactMsg) {
+  <p style="text-align: center; font-size: 1.2em; padding: 1%">
+    {{ randomFactMsg }}
+  </p>
+  }
+  <ion-list>
+    @for (task of tasks; track task.id) {
+    <app-task-card [task]="task" (refresh)="refreshTasks()"> </app-task-card>
+    }
+  </ion-list>
+
+  <ion-list>
+    <ion-item button (click)="toggleArchives()">
+      <ion-label>Archives</ion-label>
+      <ion-icon
+        [name]="showArchives ? 'chevron-up' : 'chevron-down'"
+      ></ion-icon>
+    </ion-item>
+    @if (showArchives) { @for (task of archivedTasks; track $index) {
+    <app-task-card [task]="task" (refresh)="refreshTasks()"> </app-task-card>
+    } }
+  </ion-list>
+</ion-content>

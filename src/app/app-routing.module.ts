@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule } from "@angular/router";
 import { Routes } from "@angular/router";
-import { TaskListPageModule } from "./pages/task-list/task-list.module";
-import { TaskCreatePageModule } from "./pages/task-create/task-create.module";
+import { TaskListPageModule } from "./components/task-list/task-list.module";
+import { TaskCreatePageModule } from "./components/task-create/task-create.module";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "task-list", pathMatch: "full" },

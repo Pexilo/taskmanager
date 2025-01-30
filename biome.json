@@ -6,6 +6,11 @@
 					"level": "off",
 					"fix": "none"
 				}
+			},
+			"suspicious": {
+				"noExplicitAny": {
+					"level": "off"
+				}
 			}
 		}
 	}

@@ -1,0 +1,49 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <ion-item>
+    <ion-input
+      formControlName="title"
+      label="Titre"
+      placeholder="Faire les courses"
+      label-placement="floating"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-select
+      formControlName="status"
+      label="Status"
+      label-placement="floating"
+    >
+      @for (status of statusList; track $index) {
+      <ion-select-option [value]="status"> {{ status }} </ion-select-option>}
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-select
+      formControlName="category"
+      label="Catégorie"
+      label-placement="floating"
+    >
+      @for (category of categories; track $index) {
+      <ion-select-option [value]="category.name">
+        {{ category.name }} </ion-select-option
+      >}
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+      formControlName="endDate"
+      type="date"
+      label="Date de fin"
+      label-placement="floating"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-button expand="block" type="submit" color="dark">
+    {{ initialValues.id ? "Modifier" : "Créer" }}
+  </ion-button>
+</form>

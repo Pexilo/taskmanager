@@ -24,6 +24,7 @@
     </ion-badge>
   </ion-label>
 
+  @if(!task.archived) {
   <ion-button fill="clear" color="success" (click)="updateStatus('Terminé')">
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>
@@ -33,6 +34,6 @@
   </ion-button>
 
   <ion-button fill="clear" color="warning" (click)="archiveTask()">
-    <ion-icon name="archive"></ion-icon>
-  </ion-button>
+    <ion-icon name="archive"></ion-icon> </ion-button
+  >}
 </ion-item>

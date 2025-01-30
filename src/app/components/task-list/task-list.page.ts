@@ -5,6 +5,7 @@ import { Storage } from "@ionic/storage-angular";
 import type { Status, Task } from "../../interfaces/Task";
 import { TaskService } from "src/app/services/task.service";
 import { TechQuotesService } from "src/app/services/tech-quotes.service";
+import { RandomFactService } from "src/app/services/random-fact.service";
 
 @Component({
 	selector: "app-task-list",
@@ -17,14 +18,16 @@ export class TaskListPage implements ViewDidEnter {
 	public archivedTasks: Task[] = [];
 	public showArchives = false;
 	public techQuoteMsg = "";
+	public randomFactMsg = "";
 
 	private _router = inject(Router);
 	private _taskService = inject(TaskService);
 	private _techQuotesService = inject(TechQuotesService);
+	private _randomFactService = inject(RandomFactService);
 
 	async ngOnInit() {
 		this.loadTasks();
-		this.loadTechQuoteMsg();
+		this.loadRandomFactMsg();
 	}
 
 	async ionViewDidEnter() {
@@ -43,6 +46,12 @@ export class TaskListPage implements ViewDidEnter {
 	private async loadTechQuoteMsg() {
 		this._techQuotesService.getTechQuoteMessage().subscribe((quote) => {
 			this.techQuoteMsg = quote.message;
+		});
+	}
+
+	private async loadRandomFactMsg() {
+		this._randomFactService.getRandomFactMessage().subscribe((fact) => {
+			this.randomFactMsg = fact.text;
 		});
 	}
 

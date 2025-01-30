@@ -60,6 +60,7 @@ export class TaskService {
 
 					const taskIndex = tasks.findIndex((t) => t.id === taskId);
 					if (taskIndex === -1) return;
+					tasks[taskIndex].archived = true;
 
 					const updatedTasks = [...tasks];
 					const [archivedTask] = updatedTasks.splice(taskIndex, 1);

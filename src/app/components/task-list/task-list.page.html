@@ -10,8 +10,10 @@
 </ion-header>
 
 <ion-content>
-  @if(techQuoteMsg) {
-  <p style="text-align: center; font-size: 1.2em">{{ techQuoteMsg }}</p>
+  @if(randomFactMsg) {
+  <p style="text-align: center; font-size: 1.2em; padding: 1%">
+    {{ randomFactMsg }}
+  </p>
   }
   <ion-list>
     @for (task of tasks; track task.id) {

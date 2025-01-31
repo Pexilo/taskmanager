@@ -24,7 +24,12 @@
     </ion-badge>
   </ion-label>
 
-  @if(!task.archived) {
+  @if (task.locationName) {
+  <ion-item lines="none">
+    <ion-icon name="location" slot="start"></ion-icon>
+    <ion-label class="ion-text-wrap"> {{ task.locationName }} </ion-label>
+  </ion-item>
+  } @if(!task.archived) {
   <ion-button fill="clear" color="success" (click)="updateStatus('Terminé')">
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>

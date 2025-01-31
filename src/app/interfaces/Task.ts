@@ -6,4 +6,8 @@ export interface Task {
 	category: string;
 	endDate: string;
 	archived: boolean;
+	createdAt: Date;
+	latitude?: number;
+	longitude?: number;
+	locationName?: string;
 }
